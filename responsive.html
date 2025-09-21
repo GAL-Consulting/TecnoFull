@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Productos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- NAVBAR -->
+  <nav class="bg-black p-4 flex justify-between items-center">
+    <h1 class="text-white font-bold text-lg">Catálogo</h1>
+
+    <!-- Botón hamburguesa (solo móvil) -->
+    <button id="menuBtn" class="sm:hidden text-white focus:outline-none">
+      ☰
+    </button>
+
+    <!-- Menú escritorio -->
+    <div class="hidden sm:block relative group">
+      <button class="hover:bg-gray-800 px-3 py-2 rounded text-white">Filtrar por Marca ▾</button>
+      <div id="marcaMenu" class="absolute left-0 top-full w-56 bg-black rounded shadow-lg z-50 hidden group-hover:block"></div>
+    </div>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div id="mobileMenu" class="hidden bg-black sm:hidden">
+    <div id="marcaMenuMobile" class="flex flex-col"></div>
+  </div>
+
+  <!-- GRID DE PRODUCTOS -->
+  <div id="productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6"></div>
+
+  <script>
+    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRkMjpmwhaQZ3ZIbdHQt8bxM9oM2KmlzaEKeMi-N7Ct8GyzClX68YiP03F_myzpfi86BtPgqw9neTgb/pub?gid=541804413&single=true&output=csv";
+
+    let productos = [];
+
+    async function cargarDatos() {
+      const response = await fetch(url);
+      const data = await response.text();
+      const rows = data.split("\n").map(row => row.split(","));
+
+      const headers = rows[0];
+      productos = rows.slice(1).map(row => {
+        let obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i] ? row[i].trim() : "");
+        return obj;
+      });
+
+      mostrarProductos(productos);
+      generarMenuMarcas(productos);
+    }
+
+    function mostrarProductos(lista) {
+      const contenedor = document.getElementById("productos");
+      contenedor.innerHTML = "";
+      lista.forEach(p => {
+        contenedor.innerHTML += `
+          <div class="bg-white rounded-lg shadow p-4 flex flex-col">
+            <h3 class="font-bold text-lg">${p.MARCA}</h3>
+            <p class="text-sm text-gray-600">${p.TIPO}</p>
+            <p class="mt-2 font-semibold">${p.MODELO}</p>
+            <p class="text-gray-700 flex-grow">${p.DESCRIPCION}</p>
+            <p class="mt-2 text-green-700 font-bold">USD ${p.PRECIO_USD}</p>
+            <p class="text-blue-700 font-bold">ARS ${p.PRECIO_ARS}</p>
+            <div class="mt-2 flex gap-2">
+              ${p.Ficha_Link ? `<a href="${p.Ficha_Link}" target="_blank" class="text-blue-500 underline">Ficha</a>` : ""}
+            </div>
+            ${p.Imagen_Link ? `<img src="${p.Imagen_Link}" alt="Imagen" class="mt-4 w-full h-40 object-contain">` : ""}
+          </div>
+        `;
+      });
+    }
+
+    function generarMenuMarcas(lista) {
+      const marcas = [...new Set(lista.map(p => p.MARCA.toLowerCase()))]
+        .sort()
+        .map(m => m.charAt(0).toUpperCase() + m.slice(1));
+
+      // --- Menús (escritorio y móvil) ---
+      const menuDesktop = document.getElementById("marcaMenu");
+      const menuMobile = document.getElementById("marcaMenuMobile");
+
+      menuDesktop.innerHTML = "";
+      menuMobile.innerHTML = "";
+
+      // Opción TODOS
+      const addOpcionTodos = (menu, className="") => {
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = "Todos los productos";
+        link.className = `${className} block px-4 py-2 hover:bg-gray-800 text-white`;
+        link.onclick = () => mostrarProductos(productos);
+        menu.appendChild(link);
+      };
+
+      addOpcionTodos(menuDesktop);
+      addOpcionTodos(menuMobile, "border-b border-gray-700");
+
+      // Marcas
+      marcas.forEach(marca => {
+        const crearLink = (menu, className="") => {
+          const link = document.createElement("a");
+          link.href = "#";
+          link.textContent = marca;
+          link.className = `${className} block px-4 py-2 hover:bg-gray-800 text-white`;
+          link.onclick = () => {
+            const filtrados = productos.filter(p => p.MARCA.toLowerCase() === marca.toLowerCase());
+            mostrarProductos(filtrados);
+            document.getElementById("mobileMenu").classList.add("hidden"); // cerrar menú móvil al elegir
+          };
+          menu.appendChild(link);
+        };
+
+        crearLink(menuDesktop);
+        crearLink(menuMobile, "border-b border-gray-700");
+      });
+    }
+
+    // Toggle menú móvil
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("hidden");
+    });
+
+    cargarDatos();
+  </script>
+
+</body>
+</html>
