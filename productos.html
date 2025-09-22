@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Catálogo TecnoFull DC</title>
+  <title>Productos TecnoFull DC</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
@@ -17,14 +17,14 @@
   <div class="bg-red-700 text-white p-1 text-center"></div>
   <div class="max-w-6xl mx-auto px-4 flex justify-between items-center py-3">
     <div class="flex-shrink-0 mr-6">
-      <a href="#" class="text-white text-lg font-bold">TecnoFull DC</a>
+      <a href="#" class="text-white text-lg font-bold">Catálogo TecnoFull DC</a>
     </div>
 
     <div class="flex items-center space-x-4">
       <!-- Dropdown Productos (botón) -->
       <div class="relative">
         <button id="btnMarcas" class="hover:bg-gray-800 px-3 py-2 rounded bg-black border border-gray-700">
-          Marcas ▾
+          Productos ▾
         </button>
         <div id="menuMarcas" class="submenu-desktop absolute left-0 mt-2 bg-black text-white rounded shadow-lg hidden">
           <!-- se llenará dinámicamente -->
@@ -167,7 +167,7 @@ function construirMenuMarcas(){
   // opción Todas
   const optTodas = document.createElement("a");
   optTodas.href = "#";
-  optTodas.textContent = "Todas las marcas";
+  optTodas.textContent = "Todas los productos";
   optTodas.className = "block px-4 py-2 hover:bg-gray-800";
   optTodas.addEventListener("click", e => {
     e.preventDefault();
