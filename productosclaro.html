@@ -182,10 +182,10 @@ body {
 
   </style>
 </head>
-<body class="bg-white text-gray-900 font-sans">
+<body >
 
 <nav class="bg-black text-white fixed top-0 w-full z-50 shadow-md">
-  <div class="bg-red-700 text-white p-1 text-center"></div>
+ 
   <div class="max-w-6xl mx-auto px-4 flex justify-between items-center py-3">
     <div class="flex-shrink-0 mr-6">
       <a href="#" class="text-white text-lg font-bold">TecnoFull DC</a>
@@ -216,12 +216,27 @@ body {
     <div class="logo">
       <img src="logo.png" alt="Logo Tienda de Alarmas">
     </div>
+
+
+      <!-- Dropdown Productos (botón) -->
+      <div class="relative">
+        <button id="btnMarcas" class="hover:bg-gray-800 px-3 py-2 rounded bg-black border border-gray-700">
+          Productos ▾
+        </button>
+        <div id="menuMarcas" class="submenu-desktop absolute left-0 mt-2 bg-black text-white rounded shadow-lg hidden">
+          <!-- se llenará dinámicamente -->
+        </div>
+      </div>
+
+
     <nav class="menu">
       <a href="#">Inicio</a>
       <a href="#">Alarmas</a>
       <a href="#">Sensores</a>
       <a href="#">Cámaras</a>
       <a href="#">Accesorios</a>
+  <input id="searchInput" type="text" placeholder="Buscar productos..."
+             class="w-48 md:w-64 p-2 rounded border text-black" />
     </nav>
     <a class="whatsapp-btn" href="https://wa.me/5491112345678" target="_blank">Consultar por WhatsApp</a>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
