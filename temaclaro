@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Alarmas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+    }
+
+    /* Sección Hero */
+    .hero {
+      background: url("hero.jpg") no-repeat center center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      background: rgba(0,0,0,0.6);
+      padding: 15px 30px;
+      border-radius: 10px;
+    }
+
+    /* Catálogo */
+    .catalogo {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .producto:hover {
+      transform: scale(1.03);
+    }
+    .producto img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .producto .info {
+      padding: 15px;
+    }
+    .producto .info h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .producto .info p {
+      font-size: 0.9rem;
+      margin: 0 0 10px;
+    }
+    .producto .info .precio {
+      font-weight: bold;
+      color: #e63946;
+      margin-bottom: 10px;
+    }
+    .producto .info a {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    .email {
+      background: #0078d7;
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #fff;
+    }
+
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar .container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.logo img {
+  height: 40px;
+}
+.menu {
+  display: flex;
+  gap: 15px;
+}
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+.menu a:hover {
+  background: #f0f0f0;
+}
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .menu a {
+    padding: 10px;
+    background: #f7f7f7;
+  }
+  .menu.show {
+    display: flex;
+  }
+  .whatsapp-btn {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Navegación -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo Tienda de Alarmas">
+    </div>
+    <nav class="menu">
+      <a href="#">Inicio</a>
+      <a href="#">Alarmas</a>
+      <a href="#">Sensores</a>
+      <a href="#">Cámaras</a>
+      <a href="#">Accesorios</a>
+    </nav>
+    <a class="whatsapp-btn" href="https://wa.me/5491112345678" target="_blank">Consultar por WhatsApp</a>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  </div>
+</header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Catálogo de Alarmas y Accesorios</h1>
+  </section>
+
+  <!-- Catálogo -->
+  <section class="catalogo">
+    <!-- Producto 1 -->
+    <div class="producto">
+      <img src="alarma1.jpg" alt="Sistema de alarma básico">
+      <div class="info">
+        <h3>Alarma Básica</h3>
+        <p>Sistema de seguridad con sensor de movimiento y control remoto.</p>
+        <div class="precio">$120</div>
+        <a class="whatsapp" href="https://wa.me/5491112345678" target="_blank">WhatsApp</a>
+        <a class="email" href="mailto:ventas@mitienda.com">Email</a>
+      </div>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="producto">
+      <img src="alarma2.jpg" alt="Kit avanzado de alarmas">
+      <div class="info">
+        <h3>Kit Avanzado</h3>
+        <p>Incluye sensores para puertas, ventanas y cámara de seguridad.</p>
+        <div class="precio">$250</div>
+        <a class="whatsapp" href="https://wa.me/5491112345678" target="_blank">WhatsApp</a>
+        <a class="email" href="mailto:ventas@mitienda.com">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Mi Tienda de Alarmas - Todos los derechos reservados
+  </footer>
+<script>
+  function toggleMenu() {
+    document.querySelector('.menu').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>
