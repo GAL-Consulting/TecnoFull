@@ -16,7 +16,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      text-align: left;
       color: white;
       padding: 20px;
     }
@@ -89,7 +89,7 @@
 </nav>
  <!-- Hero -->
  <section class="hero">
-   <h1>Catálogo de Alarmas y Accesorios</h1>
+   <h1>Catálogo Completo</h1>
  </section>
 <!-- Productos -->
 <main id="catalogo" class="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-24"></main>
@@ -260,6 +260,11 @@ function construirMenuMarcas() {
 
   console.log("Marcas únicas encontradas:", marcas.length, marcas);
 }
+  // Script para toggle de menú móvil
+document.getElementById('menuToggle').addEventListener('click', function() {
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileMenu.classList.toggle('hidden');
+});
 /* xxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
 /* controls para dropdown (toggle) */
