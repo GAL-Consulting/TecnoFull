@@ -9,26 +9,6 @@
   <style>
     /* pequeño ajuste visual para el dropdown */
     .submenu-desktop { min-width: 14rem; max-height: 60vh; overflow:auto; }
-     
-    /* Sección Hero */
-    .hero {
-      background: url("hero.png") no-repeat center center/cover;
-      height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      padding: 20px;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      background: rgba(0,0,0,0.6);
-      padding: 15px 30px;
-      border-radius: 10px;
-    }
-
   </style>
 </head>
 <body class="bg-white text-gray-900 font-sans">
@@ -42,8 +22,18 @@
       <a href="#" class="text-gray-800 font-bold text-lg">TecnoFull DC</a>
     </div>
 
-    <!-- Menú y botones -->
-    <div class="flex items-center space-x-4">
+    <!-- Botón para menú responsivo (pantallas pequeñas) -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="focus:outline-none">
+        <!-- icono hamburguesa -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Menú y botones (visible en pantallas medianas y grandes) -->
+    <div class="hidden md:flex items-center space-x-4">
       <!-- Dropdown Productos -->
       <div class="relative text-gray-800">
         <button id="btnMarcas" class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100 transition">
@@ -59,11 +49,26 @@
              class="w-48 md:w-64 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
     </div>
   </div>
+
+  <!-- En pantallas pequeñas, el menú desplegable -->
+  <div id="mobileMenu" class="hidden md:hidden px-4 pb-2">
+    <!-- contendrá el menú en modo vertical -->
+    <div class="flex flex-col space-y-2">
+      <!-- Aquí se duplicará el contenido del dropdown -->
+      <div class="relative text-gray-800">
+        <button id="btnMarcasMobil" class="w-full text-left px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100 transition">
+          Productos ▾
+        </button>
+        <div id="menuMarcasMobil" class="absolute left-0 mt-2 bg-white border border-gray-300 rounded shadow-lg z-40 hidden submenu-desktop max-h-60 overflow-y-auto">
+          <!-- Se llenará dinámicamente -->
+        </div>
+      </div>
+      <!-- Input búsqueda en móvil -->
+      <input id="searchInputMobil" type="text" placeholder="Buscar productos..."
+             class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    </div>
+  </div>
 </nav>
-  
-   <section class="hero">
-    <h1>Catálogo de Alarmas y Accesorios</h1>
-  </section>
 
 
 
@@ -191,12 +196,15 @@ function aplicarFiltros(){
   }
   renderProductos(lista);
 }
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+/*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 /* Construye menú dinámico de marcas */
 /* Construir menú dinámico de marcas, manteniendo funcionalidad */
+/* Función para construir el menú en ambos casos */
 function construirMenuMarcas() {
-  const menuMarcas = document.getElementById('menuMarcas');
-  menuMarcas.innerHTML = "";
+  const menu = document.getElementById('menuMarcas');
+  const menuMobil = document.getElementById('menuMarcasMobil');
+  [menu, menuMobil].forEach(m => m.innerHTML = "");
+
   const marcas = [...new Set(productosData.map(p => (p.MARCA || "").trim().toLowerCase()).filter(Boolean))].sort();
 
   // Opción Todas
@@ -235,7 +243,7 @@ function construirMenuMarcas() {
 
   console.log("Marcas únicas encontradas:", marcas.length, marcas);
 }
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+/* xxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
 /* controls para dropdown (toggle) */
 function toggleMenuMarcas(){
